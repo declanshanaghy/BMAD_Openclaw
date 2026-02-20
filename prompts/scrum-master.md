@@ -140,7 +140,7 @@ Then {result}
 
 ### Step 7: Create Sprint Status
 
-Create `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml`:
+Create `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`:
 
 ```yaml
 # Sprint Status Tracker
@@ -194,7 +194,7 @@ git commit -m "docs(planning): epics and stories for {PROJECT_NAME}
 ✅ Epics & Stories Created: {PROJECT_NAME}
 
 **Epics File:** {PLANNING_ARTIFACTS}/epics.md
-**Sprint Status:** {PROJECT_ROOT}/_bmad-output/sprint-status.yaml
+**Sprint Status:** {IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml
 
 **Epics:** {N}
 **Stories:** {X} total
