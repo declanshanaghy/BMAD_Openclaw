@@ -31,7 +31,7 @@ Implement a user story by completing all tasks/subtasks with tests, following re
 ### Step 1: Find and Load Story
 
 1. If `STORY_PATH` provided, use it directly
-2. Otherwise, read `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml`
+2. Otherwise, read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`
 3. Find FIRST story with status `ready-for-dev` or `in-progress`
 4. Load the complete story file
 5. Parse sections: Story, Acceptance Criteria, Tasks/Subtasks, Dev Notes
@@ -72,7 +72,7 @@ Check if story file contains "Senior Developer Review (AI)" section:
 
 ### Step 4: Update Status to In-Progress
 
-1. Update `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml`: story status → `in-progress`
+1. Update sprint-status.yaml: story status → `in-progress`
 2. Update story file Status section → `in-progress`
 3. **Preserve ALL comments and structure** when saving sprint-status.yaml
 
@@ -157,7 +157,7 @@ HALT: Definition of Done failed. Missing: {specific items}
 ### Step 7: Mark Ready for Review
 
 1. Update story file Status → `review` (exact value, not "ready for review")
-2. Update `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml`: story status → `review`
+2. Update sprint-status.yaml: story status → `review`
 3. Add Change Log entry with date and summary
 
 ### Step 7b: Git Commit

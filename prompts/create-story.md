@@ -19,7 +19,7 @@ Create the next user story from the epics file with comprehensive context for de
 
 ### Step 1: Load Sprint Status
 
-1. Read `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml` completely
+1. Read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` completely
 2. Find the FIRST story (reading top to bottom) where:
    - Key matches pattern `X-Y-name` (not `epic-X`)
    - Status equals `backlog`
@@ -151,7 +151,7 @@ Output summary:
 
 ### Step 5: (Orchestrator-Owned) Update Sprint Status
 
-**DO NOT edit** `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml` in this agent.
+**DO NOT edit** `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` in this agent.
 Status updates are handled by the orchestrator after it validates Quality Gates (prevents clobbering during parallel runs).
 
 Output summary:
