@@ -126,10 +126,13 @@ Create `{PLANNING_ARTIFACTS}/architecture.md`:
 ## 4. System Architecture
 
 ### 4.1 High-Level Diagram
-```
-┌─────────┐    ┌─────────┐    ┌─────────┐
-│ Client  │───▶│ Server  │───▶│   DB    │
-└─────────┘    └─────────┘    └─────────┘
+
+> ⚠️ All diagrams MUST use Mermaid syntax. No ASCII art.
+
+```mermaid
+graph LR
+    Client -->|WebSocket / HTTP| Server
+    Server -->|Query| DB
 ```
 
 ### 4.2 Components
@@ -232,6 +235,7 @@ Before completing, verify:
 - [ ] Database schema covers all PRD entities
 - [ ] Project structure defined
 - [ ] Testing strategy specified
+- [ ] All diagrams use Mermaid syntax (no ASCII art)
 - [ ] File committed to git
 
 ## HALT Conditions
@@ -250,3 +254,4 @@ Format: `HALT: {specific reason}`
 - Plan for failure modes
 - Design for testability
 - Document trade-offs explicitly
+- **All diagrams in the architecture document MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art diagrams. This applies to every diagram including system context, component, sequence, data flow, and any other visual.
