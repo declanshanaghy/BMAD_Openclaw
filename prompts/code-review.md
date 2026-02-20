@@ -174,7 +174,7 @@ Based on findings, automatically decide:
    - [ ] [AI-Review][MEDIUM] {description} [{file}:{line}]
    ```
 3. Set story Status → `in-progress` (exact value)
-4. Update sprint-status.yaml → `in-progress`
+4. Update `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml` → `in-progress`
 5. Add Change Log entry: "{date}: Code review - CHANGES REQUESTED ({count} items)"
 6. Commit the review findings:
    ```bash
@@ -195,7 +195,7 @@ Based on findings, automatically decide:
 **Actions to take:**
 1. Add "Senior Developer Review (AI)" section with approval + findings as notes
 2. Set story Status → `done` (exact value, not "complete" or "completed")
-3. Update sprint-status.yaml → `done`
+3. Update `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml` → `done`
 4. Add Change Log entry: "{date}: Code review - APPROVED"
 5. Commit the story file update:
    ```bash

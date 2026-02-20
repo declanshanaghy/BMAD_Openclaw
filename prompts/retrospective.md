@@ -19,7 +19,7 @@ Review a completed epic, analyze what happened, extract learnings, and document 
 
 ### Step 1: Gather Epic Data
 
-1. Read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`
+1. Read `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml`
 2. Find all stories for Epic {EPIC_NUMBER} (pattern: `{EPIC_NUMBER}-*`)
 3. Verify all stories are `done`
 4. Read each story file to understand what was implemented
