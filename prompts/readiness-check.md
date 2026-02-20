@@ -77,6 +77,8 @@ Check:
 - [ ] Given/When/Then format used
 - [ ] Dependencies documented
 
+**Major issue rule:** If UX requirements/components/interaction patterns are not clearly mapped to one or more implementation stories (or the mapping is ambiguous), categorize this as a **🟠 Major** issue (not Minor) because it creates implementation risk and scope drift.
+
 ### Step 7: Cross-Reference Validation
 
 Check consistency:
