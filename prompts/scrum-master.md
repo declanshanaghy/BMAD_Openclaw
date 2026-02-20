@@ -231,3 +231,4 @@ Format: `HALT: {specific reason}`
 - Stories should be 1-3 days of work
 - Each epic delivers deployable value
 - Story keys must be consistent: `1-1-story-name`
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

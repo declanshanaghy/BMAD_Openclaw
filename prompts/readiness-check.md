@@ -234,3 +234,7 @@ Format: `HALT: {specific reason}`
 **GO:** All artifacts present, no blockers, majors have mitigations
 **CONDITIONAL GO:** No blockers, some majors fixable in parallel
 **NO-GO:** Missing artifacts or blockers present
+
+## Rules
+
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

@@ -182,3 +182,7 @@ Return HALT with clear reason if:
 
 On success: Complete summary as shown in Step 5
 On HALT: `HALT: {specific reason with context for orchestrator}`
+
+## Rules
+
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

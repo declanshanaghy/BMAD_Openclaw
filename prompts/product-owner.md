@@ -199,3 +199,4 @@ Format: `HALT: {specific reason}`
 - Focus on user value, not technical implementation
 - MVP means Minimum VIABLE — it must actually solve the problem
 - Write for humans, not machines
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

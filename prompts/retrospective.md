@@ -169,3 +169,7 @@ If updates needed, list them in the retrospective under "Recommended Document Up
 - Cannot access codebase
 
 Format: `HALT: {reason}`
+
+## Rules
+
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

@@ -249,3 +249,4 @@ Format: `HALT: {specific reason}`
 - Prioritize: Must > Should > Could > Won't
 - When in doubt, ask — don't assume
 - Cross-reference user journeys in requirements
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

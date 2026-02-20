@@ -258,3 +258,4 @@ Format: `HALT: {specific reason}`
 - Every finding needs evidence
 - Accessibility is non-negotiable
 - Mobile experience matters
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

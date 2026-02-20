@@ -289,3 +289,7 @@ Format: `HALT: {reason} | Context: {details for orchestrator to resolve}`
 - Cite AC numbers when completing tasks
 - Document decisions in Completion Notes
 - Update File List immediately after changing files
+
+## Rules
+
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

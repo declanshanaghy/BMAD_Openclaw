@@ -296,3 +296,4 @@ Format: `HALT: {specific reason}`
 - Failed tests need reproduction steps
 - Screenshots for all failures
 - Test like a user, not a developer
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

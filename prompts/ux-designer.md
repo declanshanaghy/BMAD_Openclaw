@@ -276,3 +276,4 @@ Format: `HALT: {specific reason}`
 - Design for dark mode from start
 - Mobile-first approach
 - Reuse patterns over custom solutions
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.

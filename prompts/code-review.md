@@ -291,3 +291,4 @@ Format: `HALT: {reason}`
 - NEVER skip reading actual code files
 - NEVER trust File List without git verification
 - Be specific: file:line:issue, not vague complaints
+- **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.
