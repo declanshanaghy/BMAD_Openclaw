@@ -277,3 +277,4 @@ Format: `HALT: {specific reason}`
 - Mobile-first approach
 - Reuse patterns over custom solutions
 - **All diagrams in any Markdown file MUST use Mermaid syntax** (fenced with ` ```mermaid `). Do NOT use ASCII art for diagrams.
+- **Color palette diagrams MUST visually show each color:** When rendering colors in Mermaid, set the node/box `fill` to the actual hex color so the swatch is visible. Choose a contrasting text color (use `#FFFFFF` for dark colors, `#000000` for light colors) for the hex value label so it remains legible. Example: `style ColorName fill:#1A73E8,color:#FFFFFF`
