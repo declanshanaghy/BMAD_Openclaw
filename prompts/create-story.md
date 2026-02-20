@@ -134,16 +134,7 @@ so that {benefit}.
 - {date}: Story created from Epic {epic_num}
 ```
 
-### Step 4: Update Sprint Status
-
-1. Read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`
-2. **Check if this is the first story in the epic** (story_num == 1)
-3. If first story AND epic status is `backlog`:
-   - Update `epic-{epic_num}` status from `backlog` → `in-progress`
-4. Update the story's status from `backlog` to `ready-for-dev`
-5. Save the file, **preserving ALL comments and structure** (including STATUS DEFINITIONS header)
-
-### Step 5: Report Completion
+### Step 4: Report Completion
 
 Output summary:
 ```
@@ -154,9 +145,26 @@ Output summary:
 **Tasks:** {count} tasks with {count} subtasks
 
 **Story File:** {IMPLEMENTATION_ARTIFACTS}/{story_key}.md
-**Sprint Status:** Updated to ready-for-dev
 
-**Next:** Run dev-story workflow to implement this story.
+**Next:** Orchestrator will validate this output and then update sprint-status.yaml.
+```
+
+### Step 5: (Orchestrator-Owned) Update Sprint Status
+
+**DO NOT edit** `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` in this agent.
+Status updates are handled by the orchestrator after it validates Quality Gates (prevents clobbering during parallel runs).
+
+Output summary:
+```
+✅ Story Created: {story_key}
+
+**Title:** {story_title}
+**Acceptance Criteria:** {count} items
+**Tasks:** {count} tasks with {count} subtasks
+
+**Story File:** {IMPLEMENTATION_ARTIFACTS}/{story_key}.md
+
+**Next:** Orchestrator will update sprint-status.yaml, then run dev-story to implement this story.
 ```
 
 ## Quality Gates
@@ -168,7 +176,7 @@ Before completing, verify:
 - [ ] All ACs from epic are included (none missing)
 - [ ] Tasks are specific and actionable (not vague)
 - [ ] Architecture requirements are cited with sources
-- [ ] Sprint status updated correctly
+- [ ] Sprint status was NOT modified by this agent (orchestrator updates status after validation)
 - [ ] No placeholder text remaining (no `{variable}` unfilled)
 
 ## HALT Conditions
