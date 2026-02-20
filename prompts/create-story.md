@@ -163,6 +163,8 @@ Output summary:
 
 Before completing, verify:
 - [ ] Story file created with all sections populated
+- [ ] **Story filename is exactly** `{IMPLEMENTATION_ARTIFACTS}/stories/{story_key}.md` (no extra extensions like `.story.md`)
+- [ ] **No duplicate story files** exist for the same story key (e.g., both `{story_key}.md` and `{story_key}.story.md`)
 - [ ] All ACs from epic are included (none missing)
 - [ ] Tasks are specific and actionable (not vague)
 - [ ] Architecture requirements are cited with sources
