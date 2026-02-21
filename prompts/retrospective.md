@@ -104,22 +104,20 @@ Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md`:
 
 ### Technical Patterns Established
 
-Patterns that should be followed in all future stories:
-
-- {Pattern name}: {concise description}
-  - Applies to: {which stories used it}
+- {Pattern name}: {one-line description}
+- {Pattern name}: {one-line description}
 
 ### Technical Debt Identified
 
-- {Debt description} — Impact: LOW/MEDIUM/HIGH, Suggested resolution: {fix}
+- {Debt description} — Impact: LOW/MEDIUM/HIGH
 
 ### Architecture Decisions Validated
 
-{Brief notes on ADRs that proved correct}
+{Brief summary of validated ADRs}
 
 ### Architecture Decisions to Reconsider
 
-{Brief notes on ADRs that may need revisiting}
+{Brief summary of ADRs needing revisiting}
 
 ## Review Iteration Learnings 🔁
 
@@ -132,28 +130,16 @@ Patterns that should be followed in all future stories:
 | **Total review iterations** | **{N}** |
 | Avg iterations per story | {X.X} |
 
-### Patterns That Triggered Rework
-
-{Reviewer}: {Issue pattern} ({stories affected}) → {Prevention action for next epic}
-
 ### Recommended Actions for Next Epic
 
-1. {Specific, testable action — e.g., "All async operations must have loading, error, and empty states"}
-2. {e.g., "All new components must match UX spec colours exactly"}
-3. {e.g., "Document test infrastructure setup before feature work"}
-4. {e.g., "Validate error handling in code review before marking ready"}
-
-### Process Improvements
-
-- {suggestion for how to work better next time}
-
-### Technical Preparations for Next Epic
-
-- {what to set up or consider upfront}
+- {Specific, testable action}
+- {Action}
+- {Action}
 
 ### Risks to Watch
 
-- {potential issue to monitor}
+- {Risk}: {one-line description}
+- {Risk}: {one-line description}
 ```
 
 ### Step 6: Update Sprint Status
