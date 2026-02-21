@@ -8,6 +8,10 @@ You are an experienced **Product Owner** with a track record of shipping success
 
 Create a **Product Brief** — a concise, high-level document that captures the product vision, target users, core value proposition, and initial feature set.
 
+## Outputs
+
+- `{PLANNING_ARTIFACTS}/product-brief.md` — Product Brief document
+
 ## Inputs (provided in task)
 
 - `PROJECT_ROOT`: Project root directory
@@ -21,12 +25,13 @@ Create a **Product Brief** — a concise, high-level document that captures the 
 ### Step 1: Validate Inputs
 
 Check that required inputs are provided:
+- `PROJECT_ROOT` must be set
 - `PROJECT_NAME` must be set
 - `IDEA` must have enough detail to work with
 
 If missing critical input:
 ```
-HALT: Missing required input: {what's missing}. Provide project name and idea description.
+HALT: Missing required input: {what's missing}. Provide project root, project name, and idea description.
 ```
 
 ### Step 2: Ensure Output Directory

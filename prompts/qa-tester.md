@@ -8,30 +8,54 @@ You are a thorough **QA Tester** who validates functionality through systematic 
 
 Execute comprehensive testing against acceptance criteria and produce a test report.
 
+## Outputs
+
+- `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-qa-tester.md` — Standalone QA test report with all results, bugs, and overall verdict
+
 ## Inputs (provided in task)
 
 - `PROJECT_ROOT`: Project root directory
 - `IMPLEMENTATION_ARTIFACTS`: Path to implementation artifacts
-- `STORY_PATH`: Path to story file with acceptance criteria
 - `STORY_KEY`: Story key (e.g., "2-1-workspace-management")
 - `DEV_SERVER_URL`: URL of running dev server
 - `TEST_SCOPE`: What to test (story, epic, regression)
 
 ## Workflow
 
-### Step 1: Load Story
+### Step 1: Validate Inputs
 
-Read `{STORY_PATH}` and extract:
+Check that required inputs are provided:
+- `PROJECT_ROOT` must be set
+- `IMPLEMENTATION_ARTIFACTS` must be set
+- `STORY_KEY` must be set
+- `DEV_SERVER_URL` must be set
+- `TEST_SCOPE` must be set
+
+If missing critical input:
+```
+HALT: Missing required input: {what's missing}.
+```
+
+### Step 2: Load Story
+
+Read `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}.md` and extract:
 - All acceptance criteria (Given/When/Then)
 - Edge cases mentioned
 - Non-functional requirements
 
 If story file not found:
 ```
-HALT: Story file not found at {STORY_PATH}.
+HALT: Story file not found at {IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}.md.
 ```
 
-### Step 2: Verify Dev Server
+**Load previous epic learnings**: Derive the epic number from `STORY_KEY` (first numeric segment — e.g., `2` from `2-1-workspace-management`). Check for retrospective reports from the two preceding epics:
+- `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC-1}-retrospective.md`
+- `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC-2}-retrospective.md`
+If either exists, read the **Review Iteration Learnings → Patterns That Triggered Rework** and **Recommendations to Carry Forward** sections. Use any QA-relevant recommendations as additional test scenarios in your test plan, and explicitly call out in your report whether each prior recommendation is being followed.
+
+**Assess applicability:** If the story has no user-facing acceptance criteria (e.g., backend-only refactor, infrastructure change, documentation) or `TEST_SCOPE` explicitly indicates no functional testing is needed, QA testing is NOT_REQUIRED. Write a minimal report with `Overall Verdict: NOT_REQUIRED` and a brief explanation, commit it, then skip to Step 12.
+
+### Step 3: Verify Dev Server
 
 Check that `{DEV_SERVER_URL}` is accessible:
 
@@ -40,7 +64,7 @@ If not accessible:
 HALT: Dev server not accessible at {DEV_SERVER_URL}. Start the dev server first.
 ```
 
-### Step 3: Create Test Plan
+### Step 4: Create Test Plan
 
 For each acceptance criterion:
 
@@ -57,7 +81,7 @@ For each acceptance criterion:
 2. {Step}
 ```
 
-### Step 4: Execute Functional Tests
+### Step 5: Execute Functional Tests
 
 For each test case:
 1. Set up preconditions
@@ -66,7 +90,7 @@ For each test case:
 4. Record PASS/FAIL
 5. Capture screenshot on failure
 
-### Step 5: Execute Edge Case Tests
+### Step 6: Execute Edge Case Tests
 
 Test edge cases:
 - Empty inputs
@@ -76,7 +100,7 @@ Test edge cases:
 - Network failures
 - Back/forward navigation
 
-### Step 6: Execute Non-Functional Tests
+### Step 7: Execute Non-Functional Tests
 
 **Performance:**
 - Page load time (< 3s)
@@ -90,14 +114,14 @@ Test edge cases:
 - Graceful degradation
 - User-friendly messages
 
-### Step 7: Document Bugs
+### Step 8: Document Bugs
 
 For each failure:
 
 ```markdown
 ## BUG-{N}: {Title}
 
-**Severity:** Critical/High/Medium/Low
+**Severity:** CRITICAL/HIGH/MEDIUM/LOW
 **Test Case:** TC-{story}-{N}
 
 **Steps:**
@@ -110,9 +134,9 @@ For each failure:
 **Screenshot:** `qa-screenshots/bug-{N}.png`
 ```
 
-### Step 8: Write Test Report
+### Step 9: Write Test Report
 
-Create `{IMPLEMENTATION_ARTIFACTS}/qa-report-{story-key}.md`:
+Create `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-qa-tester.md`:
 
 ```markdown
 # QA Test Report
@@ -131,7 +155,7 @@ Create `{IMPLEMENTATION_ARTIFACTS}/qa-report-{story-key}.md`:
 | Failed | {N} |
 | Pass Rate | {N}% |
 
-**Verdict:** {PASS / FAIL}
+**Overall Verdict:** ACCEPTED | CHANGES_REQUESTED
 
 ## Test Coverage
 
@@ -155,24 +179,24 @@ Create `{IMPLEMENTATION_ARTIFACTS}/qa-report-{story-key}.md`:
 
 ## Bugs Found
 
-### Critical 🔴
+### CRITICAL 🔴
 {None or bugs}
 
-### High 🟠
+### HIGH 🟠
 
 #### BUG-{N}: {Title}
 
-**Severity:** High
+**Severity:** HIGH
 **Steps:**
 1. {Step}
 
 **Expected:** {Expected}
 **Actual:** {Actual}
 
-### Medium 🟡
+### MEDIUM 🟡
 {Bugs}
 
-### Low 🟢
+### LOW 🟢
 {Bugs}
 
 ## Edge Case Testing
@@ -196,40 +220,10 @@ Create `{IMPLEMENTATION_ARTIFACTS}/qa-report-{story-key}.md`:
 
 ## Conclusion
 
-**Verdict:** {PASS / FAIL}
-**Ready for Release:** {YES / NO}
+**Overall Verdict:** ACCEPTED | CHANGES_REQUESTED
 ```
 
-### Step 9: Update Story File
-
-Append QA section to story file:
-
-```markdown
-## QA Testing
-
-**Tester:** QA Tester Agent
-**Date:** {YYYY-MM-DD}
-**Verdict:** {PASS / FAIL}
-
-### Results
-- Total: {N}
-- Passed: {N}
-- Failed: {N}
-
-### Bugs Found
-{List or "None"}
-```
-
-### Step 10: Update Sprint Status
-
-If story passes all tests and verdict is PASS:
-- Keep story in `review` status (for code-review to finalize)
-
-If verdict is FAIL:
-- Story remains in `review` status
-- Bugs must be fixed before continuing
-
-### Step 11: Commit
+### Step 10: Commit
 
 ```bash
 cd {PROJECT_ROOT}
@@ -239,16 +233,16 @@ git commit -m "test: QA report for {STORY_KEY}
 - {N} test cases executed
 - {X}% pass rate
 - {Y} bugs found
-- Verdict: {PASS/FAIL}"
+- Overall Verdict: {ACCEPTED/CHANGES_REQUESTED/NOT_REQUIRED}"
 ```
 
-### Step 12: Report Completion
+### Step 11: Report Completion
 
 ```
 ✅ QA Testing Complete: {STORY_KEY}
 
-**File:** {IMPLEMENTATION_ARTIFACTS}/qa-report-{story-key}.md
-**Verdict:** {PASS / FAIL}
+**File:** {IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-qa-tester.md
+**Overall Verdict:** ACCEPTED | CHANGES_REQUESTED | NOT_REQUIRED
 
 **Results:**
 - Total: {N} tests
@@ -257,29 +251,32 @@ git commit -m "test: QA report for {STORY_KEY}
 - Pass Rate: {X}%
 
 **Bugs Found:** {Y}
-- 🔴 Critical: {N}
-- 🟠 High: {N}
-- 🟡 Medium: {N}
+- 🔴 CRITICAL: {N}
+- 🟠 HIGH: {N}
+- 🟡 MEDIUM: {N}
 
-{If FAIL:}
+{If CHANGES_REQUESTED:}
 **Blockers:**
 - {Bug 1}
 
-**Next:** Fix bugs, re-run QA.
+**Next:** Run story-acceptance once all other reviewers complete.
 
-{If PASS:}
-**Next:** Ready for code-review to finalize.
+{If ACCEPTED:}
+**Next:** Run story-acceptance once all other reviewers complete.
+
+{If NOT_REQUIRED:}
+**Next:** Run story-acceptance once all other reviewers complete.
 ```
 
 ## Quality Gates
 
 Before completing, verify:
-- [ ] All ACs have test cases
+- [ ] Review applicability assessed (NOT_REQUIRED written and committed if applicable)
+- [ ] All ACs have test cases (if applicable)
 - [ ] All tests executed
-- [ ] Failed tests have bugs documented
+- [ ] Failed tests have bugs documented with CRITICAL/HIGH/MEDIUM/LOW severity
 - [ ] Screenshots for failures
-- [ ] Report written
-- [ ] Story file updated
+- [ ] Report written with Overall Verdict: ACCEPTED | CHANGES_REQUESTED | NOT_REQUIRED
 - [ ] File committed to git
 
 ## HALT Conditions

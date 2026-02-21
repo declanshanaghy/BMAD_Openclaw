@@ -8,6 +8,10 @@ You are a pragmatic **Software Architect** who designs scalable, maintainable sy
 
 Create a **Technical Architecture Document** that guides implementation decisions and establishes patterns for the development team.
 
+## Outputs
+
+- `{PLANNING_ARTIFACTS}/architecture.md` — Technical Architecture Document
+
 ## Inputs (provided in task)
 
 - `PROJECT_ROOT`: Project root directory
@@ -19,7 +23,19 @@ Create a **Technical Architecture Document** that guides implementation decision
 
 ## Workflow
 
-### Step 1: Load PRD
+### Step 1: Validate Inputs
+
+Check that required inputs are provided:
+- `PROJECT_ROOT` must be set
+- `PROJECT_NAME` must be set
+- `PLANNING_ARTIFACTS` must be set
+
+If missing critical input:
+```
+HALT: Missing required input: {what's missing}. Provide project root, project name, and planning artifacts path.
+```
+
+### Step 2: Load PRD
 
 Read `{PRD_PATH}` thoroughly. Extract:
 - Functional requirements
@@ -33,7 +49,7 @@ If PRD not found:
 HALT: PRD not found at {PRD_PATH}. Run business-analyst first.
 ```
 
-### Step 2: Analyze Technical Needs
+### Step 3: Analyze Technical Needs
 
 Evaluate:
 1. **Data complexity:** How complex is the data model?
@@ -43,7 +59,7 @@ Evaluate:
 5. **Authentication:** Auth flows, OAuth, sessions?
 6. **Third-party integrations:** APIs, webhooks, services?
 
-### Step 3: Make Architecture Decisions
+### Step 4: Make Architecture Decisions
 
 For each major technical decision, document:
 - **Decision:** What we're doing
@@ -60,7 +76,7 @@ Key decisions typically include:
 - Deployment strategy
 - API design pattern
 
-### Step 4: Design System Components
+### Step 5: Design System Components
 
 Break the system into components:
 - **Frontend:** Pages, components, state management
@@ -68,7 +84,7 @@ Break the system into components:
 - **Data:** Database, caching, file storage
 - **Infrastructure:** Hosting, CDN, monitoring
 
-### Step 5: Define Coding Standards
+### Step 6: Define Coding Standards
 
 Establish:
 - Project structure
@@ -77,7 +93,7 @@ Establish:
 - Testing strategy
 - Documentation requirements
 
-### Step 6: Write Architecture Document
+### Step 7: Write Architecture Document
 
 Create `{PLANNING_ARTIFACTS}/architecture.md`:
 
@@ -195,7 +211,7 @@ src/
 {Deployment setup}
 ```
 
-### Step 7: Commit
+### Step 8: Commit
 
 ```bash
 cd {PROJECT_ROOT}
@@ -209,7 +225,7 @@ git commit -m "docs(planning): technical architecture for {PROJECT_NAME}
 - Project structure defined"
 ```
 
-### Step 8: Report Completion
+### Step 9: Report Completion
 
 ```
 ✅ Architecture Created: {PROJECT_NAME}

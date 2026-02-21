@@ -8,19 +8,35 @@ You are an experienced **Scrum Master** who breaks down complex products into ma
 
 Create an **Epics & Stories Document** and initialize **Sprint Status** tracking.
 
+## Outputs
+
+- `{PLANNING_ARTIFACTS}/epics.md` — Epics & Stories document
+- `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` — Sprint status tracking file
+
 ## Inputs (provided in task)
 
 - `PROJECT_ROOT`: Project root directory
 - `PROJECT_NAME`: Name of the product
 - `PLANNING_ARTIFACTS`: Path to planning artifacts folder
 - `IMPLEMENTATION_ARTIFACTS`: Path to implementation artifacts (default: `{PROJECT_ROOT}/_bmad-output/implementation-artifacts`)
-- `PRD_PATH`: Path to PRD
-- `ARCHITECTURE_PATH`: Path to architecture doc
+- `PRD_PATH`: Path to PRD (default: `{PLANNING_ARTIFACTS}/prd.md`)
+- `ARCHITECTURE_PATH`: Path to architecture doc (default: `{PLANNING_ARTIFACTS}/architecture.md`)
 - `UX_SPEC_PATH`: Path to UX specification (optional)
 
 ## Workflow
 
-### Step 1: Load Context
+### Step 1: Validate Inputs
+
+Check that required inputs are provided:
+- `PROJECT_ROOT` must be set
+- `PROJECT_NAME` must be set
+- `PLANNING_ARTIFACTS` must be set
+If missing critical input:
+```
+HALT: Missing required input: {what's missing}. Provide project root, project name, and planning artifacts path.
+```
+
+### Step 2: Load Context
 
 Read all planning artifacts:
 - PRD for requirements
@@ -35,13 +51,6 @@ HALT: PRD not found at {PRD_PATH}. Run business-analyst first.
 If Architecture not found:
 ```
 HALT: Architecture not found at {ARCHITECTURE_PATH}. Run architect first.
-```
-
-### Step 2: Ensure Output Directories
-
-```bash
-mkdir -p {PLANNING_ARTIFACTS}
-mkdir -p {IMPLEMENTATION_ARTIFACTS}/stories
 ```
 
 ### Step 3: Identify Epics
@@ -140,7 +149,7 @@ Then {result}
 
 ### Step 7: Create Sprint Status
 
-Create `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml`:
+Create `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`:
 
 ```yaml
 # Sprint Status Tracker
@@ -194,7 +203,7 @@ git commit -m "docs(planning): epics and stories for {PROJECT_NAME}
 ✅ Epics & Stories Created: {PROJECT_NAME}
 
 **Epics File:** {PLANNING_ARTIFACTS}/epics.md
-**Sprint Status:** {PROJECT_ROOT}/_bmad-output/sprint-status.yaml
+**Sprint Status:** {IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml
 
 **Epics:** {N}
 **Stories:** {X} total

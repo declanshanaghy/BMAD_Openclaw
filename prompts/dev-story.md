@@ -23,25 +23,43 @@ Implement a user story by completing all tasks/subtasks with tests, following re
 
 - `PROJECT_ROOT`: Project root directory (e.g., `/path/to/slyd`)
 - `IMPLEMENTATION_ARTIFACTS`: Path to story files
-- `STORY_PATH`: (optional) Specific story file to implement
+- `PLANNING_ARTIFACTS`: Path to planning artifacts (architecture, PRD)
 - `STORY_KEY`: (optional) Story key like "2-1-workspace-management"
 
 ## Workflow
 
-### Step 1: Find and Load Story
+### Step 1: Validate Inputs
 
-1. If `STORY_PATH` provided, use it directly
-2. Otherwise, read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`
-3. Find FIRST story with status `ready-for-dev` or `in-progress`
-4. Load the complete story file
-5. Parse sections: Story, Acceptance Criteria, Tasks/Subtasks, Dev Notes
+Check that required inputs are provided:
+- `PROJECT_ROOT` must be set
+- `IMPLEMENTATION_ARTIFACTS` must be set
+- `PLANNING_ARTIFACTS` must be set
 
-If no ready story found:
+If missing critical input:
 ```
-HALT: No ready-for-dev stories. Run create-story first or specify story path.
+HALT: Missing required input: {what's missing}. Provide project root, implementation artifacts path, and planning artifacts path.
 ```
 
-### Step 2: Load Project Context
+### Step 2: Find and Load Story
+
+1. If `STORY_KEY` is provided:
+   - Resolve story file path: `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}.md`
+   - Verify the file exists
+   - If not found:
+     ```
+     HALT: Story file not found at {IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}.md. Check the story key and implementation artifacts path.
+     ```
+2. If `STORY_KEY` is not provided:
+   - Read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`
+   - Find the FIRST story with status `ready-for-dev` or `in-progress`
+   - If no such story found:
+     ```
+     HALT: No ready-for-dev stories. Run create-story first or provide a STORY_KEY.
+     ```
+3. Load the complete story file
+4. Parse sections: Story, Acceptance Criteria, Tasks/Subtasks, Dev Notes
+
+### Step 3: Load Project Context
 
 1. Read `{PROJECT_ROOT}/project-context.md` if exists (coding standards)
 2. Review Dev Notes section for architecture requirements
@@ -51,36 +69,60 @@ HALT: No ready-for-dev stories. Run create-story first or specify story path.
    - Look at their Dev Notes, File List, and implementation patterns
    - Follow the same coding patterns, file organization, and conventions
 5. Read `{PLANNING_ARTIFACTS}/architecture.md` for technical constraints
+6. **Load previous epic learnings**: Derive the epic number from `STORY_KEY` (first numeric segment — e.g., `2` from `2-1-workspace-management`). Check for retrospective reports from the two preceding epics:
+   - `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC-1}-retrospective.md`
+   - `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC-2}-retrospective.md`
+   If either exists, read the **Recommendations to Carry Forward** section. Treat each recommendation as an implementation constraint — follow it throughout Step 6 as if it were part of the story's Dev Notes. If you find yourself violating a recommendation while implementing a task, fix the violation before marking the task [x].
 
-### Step 3: Detect Review Continuation
+### Step 4: Detect Review Continuation
 
-Check if story file contains "Senior Developer Review (AI)" section:
+Check for acceptance and review reports before proceeding.
 
-**If review section exists (resuming after code review):**
-1. Set `review_continuation = true`
-2. Extract from review section:
-   - Review outcome (APPROVED / CHANGES REQUESTED)
-   - Review date
-   - Count unchecked action items
-3. Check for "Review Follow-ups (AI)" subsection under Tasks/Subtasks
-4. Count unchecked `[AI-Review]` tasks
-5. **Prioritize these review follow-up tasks BEFORE regular tasks**
+#### Check 1: Story Acceptance Report
 
-**If no review section (fresh start):**
-1. Set `review_continuation = false`
-2. Proceed with normal task order
+Look for `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-story-acceptance.md`:
 
-### Step 4: Update Status to In-Progress
+**If found:**
+- Read the report and extract the **Decision** field
+- If Decision is **ACCEPTED**:
+  ```
+  HALT: Story {STORY_KEY} has already been ACCEPTED by story-acceptance. Status is done. Nothing to implement.
+  ```
+- If Decision is **CHANGES_REQUESTED**:
+  - Set `review_continuation = true`
+  - Extract all blocking items from the report's "🚫 Blocking Items" section
+  - These become the highest-priority work items for this run
+
+#### Check 2: Individual Review Reports (if no story-acceptance report)
+
+If no story-acceptance report exists, check for individual reviewer reports and extract any critical/high findings that need addressing:
+- `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-code-review.md` → extract CRITICAL and HIGH issues
+- `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-qa-tester.md` → extract CRITICAL and HIGH bugs
+- `{IMPLEMENTATION_ARTIFACTS}/{STORY_KEY}-ux-review.md` → extract CRITICAL and HIGH findings
+
+If any blocking findings are found across these reports, set `review_continuation = true`.
+
+#### Priority Order When `review_continuation = true`
+
+1. Blocking items from story-acceptance report (if present)
+2. CRITICAL/HIGH findings from individual review reports
+3. Remaining regular unchecked story tasks
+
+#### If No Review Artifacts Found (fresh start)
+
+Set `review_continuation = false` and proceed with normal task order.
+
+### Step 5: Update Status to In-Progress
 
 1. Update sprint-status.yaml: story status → `in-progress`
 2. Update story file Status section → `in-progress`
 3. **Preserve ALL comments and structure** when saving sprint-status.yaml
 
-### Step 4: Implement Tasks (Red-Green-Refactor)
+### Step 6: Implement Tasks (Red-Green-Refactor)
 
 For EACH unchecked task/subtask in order:
 
-#### 4a. RED Phase — Write Failing Tests First
+#### 6a. RED Phase — Write Failing Tests First
 ```
 - Understand what the task requires
 - Write test(s) that verify the expected behavior
@@ -88,7 +130,7 @@ For EACH unchecked task/subtask in order:
 - If tests pass before implementation, tests are wrong
 ```
 
-#### 4b. GREEN Phase — Minimal Implementation
+#### 6b. GREEN Phase — Minimal Implementation
 ```
 - Write MINIMAL code to make tests pass
 - Run tests — confirm they pass
@@ -96,14 +138,14 @@ For EACH unchecked task/subtask in order:
 - Do NOT add extra features beyond the task
 ```
 
-#### 4c. REFACTOR Phase — Clean Up
+#### 6c. REFACTOR Phase — Clean Up
 ```
 - Improve code structure while keeping tests green
 - Ensure code follows architecture patterns from Dev Notes
 - Run tests again — must still pass
 ```
 
-#### 4d. Mark Task Complete
+#### 6d. Mark Task Complete
 ```
 - Verify tests exist AND pass
 - Mark task checkbox: [ ] → [x]
@@ -111,13 +153,7 @@ For EACH unchecked task/subtask in order:
 - Add notes to Dev Agent Record → Completion Notes List
 ```
 
-**If task is a review follow-up (has `[AI-Review]` prefix):**
-```
-- Also mark the corresponding action item in "Senior Developer Review (AI) → Action Items" section
-- Add completion note: "✅ Resolved review finding [{severity}]: {description}"
-```
-
-#### 4e. Repeat for Next Task
+#### 6e. Repeat for Next Task
 
 Continue until ALL tasks and subtasks are marked [x].
 
@@ -127,7 +163,7 @@ Continue until ALL tasks and subtasks are marked [x].
 - Only stop when ALL tasks complete OR a HALT condition triggers
 - NEVER mark a task [x] unless tests actually exist and pass
 
-### Step 5: Run Full Test Suite
+### Step 7: Run Full Test Suite
 
 After all tasks complete:
 1. Run the complete test suite
@@ -139,7 +175,7 @@ If tests fail:
 HALT: Regression detected. {test_name} failed: {error}
 ```
 
-### Step 6: Validate Definition of Done
+### Step 8: Validate Definition of Done
 
 Check ALL items:
 - [ ] All tasks/subtasks marked [x]
@@ -154,13 +190,13 @@ If any fail:
 HALT: Definition of Done failed. Missing: {specific items}
 ```
 
-### Step 7: Mark Ready for Review
+### Step 9: Mark Ready for Review
 
 1. Update story file Status → `review` (exact value, not "ready for review")
 2. Update sprint-status.yaml: story status → `review`
 3. Add Change Log entry with date and summary
 
-### Step 7b: Git Commit
+### Step 10: Git Commit
 
 After all code changes, create a commit:
 ```bash
@@ -174,7 +210,7 @@ Implements story {story_key}:
 - Build and lint pass"
 ```
 
-### Step 8: Report Completion
+### Step 11: Report Completion
 
 **If this was a fresh implementation (review_continuation = false):**
 ```

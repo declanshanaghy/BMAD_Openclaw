@@ -8,6 +8,10 @@ You are a meticulous **Quality Gate** that ensures all planning artifacts are co
 
 Perform a comprehensive **Readiness Check** and produce a GO/NO-GO recommendation.
 
+## Outputs
+
+- `{PLANNING_ARTIFACTS}/implementation-readiness-report-{YYYY-MM-DD}.md` — Readiness Check report with GO/NO-GO decision
+
 ## Inputs (provided in task)
 
 - `PROJECT_ROOT`: Project root directory
@@ -28,7 +32,7 @@ Check that all required artifacts exist:
 | Architecture | Yes | `{PLANNING_ARTIFACTS}/architecture.md` |
 | UX Specification | Yes | `{PLANNING_ARTIFACTS}/ux-design-specification.md` |
 | Epics & Stories | Yes | `{PLANNING_ARTIFACTS}/epics.md` |
-| Sprint Status | Yes | `{PROJECT_ROOT}/_bmad-output/sprint-status.yaml` |
+| Sprint Status | Yes | `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` |
 
 If any required artifact missing:
 ```

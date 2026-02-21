@@ -9,7 +9,7 @@
 
 ---
 
-A full implementation of the [BMad Method](https://github.com/bmadcode/BMAD-METHOD) using [OpenClaw](https://github.com/openclaw/openclaw)'s `sessions_spawn` capability. Ship production-quality software with a 12-agent AI development team — all orchestrated from a single chat session.
+A full implementation of the [BMad Method](https://github.com/bmadcode/BMAD-METHOD) using [OpenClaw](https://github.com/openclaw/openclaw)'s `sessions_spawn` capability. Ship production-quality software with a 13-agent AI development team — all orchestrated from a single chat session.
 
 ## What is this?
 
@@ -19,39 +19,74 @@ This repo adapts BMad to run natively on OpenClaw, using sub-agent spawning inst
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Main Session (Orchestrator)               │
-│  • Always responsive to user                                 │
-│  • Spawns sub-agents for each workflow step                  │
-│  • Handles HALT conditions and retries                       │
-│  • Tracks sprint status across all agents                    │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                    sessions_spawn (isolated)
-                              │
-    ┌──────────┬──────────┬──────────┬──────────┬──────────┐
-    ▼          ▼          ▼          ▼          ▼          ▼
- product    business   architect  ux-design  scrum     readiness
-  owner     analyst                er       master     check
-    │          │          │          │          │          │
-    ▼          ▼          ▼          ▼          ▼          ▼
-  Brief      PRD     Architecture  UX Spec   Epics    GO/NO-GO
-                                            Stories
-    │
-    └──────────────────────────────────────────────────────────┐
-                                                               │
-    ┌──────────┬──────────┬──────────┬──────────┐              │
-    ▼          ▼          ▼          ▼          ▼              │
- create     dev-story   code      ux-review  qa-tester  retrospective
-  story                 review
-    │          │          │          │          │              │
-    ▼          ▼          ▼          ▼          ▼              ▼
- Story.md   Code +    Approve/   UX Pass/   QA Pass/    Sprint
-            Tests     Reject     Fail       Fail        Learnings
+> **Canonical diagrams:** These are maintained in `ORCHESTRATOR.md`. If you update one, update both.
+
+<!-- DIAGRAM: Keep in sync with ORCHESTRATOR.md -->
+```mermaid
+flowchart TD
+    subgraph Orchestrator["Main Session (Orchestrator)"]
+        O["Always responsive to user · Spawns sub-agents · Handles HALTs · Tracks sprint status"]
+    end
+
+    subgraph Planning["Planning Phase"]
+        PO["product-owner"] --> BA["business-analyst"]
+        BA --> AR["architect"]
+        BA --> UXD["ux-designer"]
+        AR & UXD --> SM["scrum-master"]
+        SM --> RC["readiness-check"]
+    end
+
+    subgraph EpicLoop["Epic Loop (one per epic)"]
+        subgraph StoryLoop["Story Loop (one per story)"]
+            CS["create-story"] --> DS["dev-story"]
+            DS --> CR["code-review"] & QA["qa-tester"] & UR["ux-review"]
+            CR & QA & UR --> SA["story-acceptance"]
+            SA -->|"Changes Required"| DS
+            SA -->|"Accepted ✓"| MORES{"More stories in epic?"}
+            MORES -->|"Yes"| CS
+        end
+        MORES -->|"No"| RETRO["retrospective"]
+        RETRO --> MOREE{"More epics?"}
+        MOREE -->|"Yes"| CS
+    end
+
+    Orchestrator --> Planning
+    RC --> CS
+    MOREE -->|"No"| PC(["🎉 Product Complete"])
 ```
 
-## 12 Agents
+### Planning Phase
+
+```mermaid
+flowchart TD
+    PO["product-owner"] --> BA["business-analyst"]
+    BA --> AR["architect"]
+    BA --> UXD["ux-designer"]
+    AR & UXD --> SM["scrum-master"]
+    SM --> RC["readiness-check"]
+```
+
+### Execution Phase
+
+```mermaid
+flowchart TD
+    subgraph EpicLoop["Epic Loop (one per epic)"]
+        subgraph StoryLoop["Story Loop (one per story)"]
+            CS["create-story"] --> DS["dev-story"]
+            DS --> CR["code-review"] & QA["qa-tester"] & UR["ux-review"]
+            CR & QA & UR --> SA["story-acceptance"]
+            SA -->|"Changes Required"| DS
+            SA -->|"Accepted ✓"| MORES{"More stories in epic?"}
+            MORES -->|"Yes"| CS
+        end
+        MORES -->|"No"| RETRO["retrospective"]
+        RETRO --> MOREE{"More epics?"}
+        MOREE -->|"Yes"| CS
+    end
+    MOREE -->|"No"| PC(["🎉 Product Complete"])
+```
+
+## 13 Agents
 
 ### Planning Phase
 | Agent | Prompt | Output |
@@ -71,6 +106,7 @@ This repo adapts BMad to run natively on OpenClaw, using sub-agent spawning inst
 | **Code Review** | `prompts/code-review.md` | Adversarial review (3-10 issues minimum) |
 | **UX Review** | `prompts/ux-review.md` | UX compliance check |
 | **QA Tester** | `prompts/qa-tester.md` | Test execution and validation |
+| **Story Acceptance** | `prompts/story-acceptance.md` | Final ACCEPTED/CHANGES REQUIRED verdict across all reviewers |
 | **Retrospective** | `prompts/retrospective.md` | Sprint retrospective and learnings |
 
 ## Setup

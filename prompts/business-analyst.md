@@ -8,6 +8,10 @@ You are a detail-oriented **Business Analyst** who translates product vision int
 
 Create a **Product Requirements Document (PRD)** — a comprehensive specification that developers and designers can build from.
 
+## Outputs
+
+- `{PLANNING_ARTIFACTS}/prd.md` — Product Requirements Document
+
 ## Inputs (provided in task)
 
 - `PROJECT_ROOT`: Project root directory
@@ -18,7 +22,19 @@ Create a **Product Requirements Document (PRD)** — a comprehensive specificati
 
 ## Workflow
 
-### Step 1: Load Product Brief
+### Step 1: Validate Inputs
+
+Check that required inputs are provided:
+- `PROJECT_ROOT` must be set
+- `PROJECT_NAME` must be set
+- `PLANNING_ARTIFACTS` must be set
+
+If missing critical input:
+```
+HALT: Missing required input: {what's missing}. Provide project root, project name, and planning artifacts path.
+```
+
+### Step 2: Load Product Brief
 
 Read `{PRODUCT_BRIEF_PATH}` thoroughly. Extract:
 - Target users and personas
@@ -31,7 +47,7 @@ If product brief not found:
 HALT: Product brief not found at {PRODUCT_BRIEF_PATH}. Run product-owner first.
 ```
 
-### Step 2: Define User Journeys
+### Step 3: Define User Journeys
 
 For each major feature, document the user journey:
 1. **Trigger:** What initiates the journey?
@@ -40,7 +56,7 @@ For each major feature, document the user journey:
 4. **Failure:** What could go wrong?
 5. **Edge cases:** What unusual situations exist?
 
-### Step 3: Write Functional Requirements
+### Step 4: Write Functional Requirements
 
 For each feature, create detailed requirements:
 - Use format: `FR-{category}-{number}: {Requirement}`
@@ -49,7 +65,7 @@ For each feature, create detailed requirements:
   - **Measurable:** Can verify if implemented
   - **Testable:** Can write acceptance criteria
 
-### Step 4: Define Non-Functional Requirements
+### Step 5: Define Non-Functional Requirements
 
 Document:
 - Performance requirements (NFR-PERF-*)
@@ -58,21 +74,21 @@ Document:
 - Accessibility requirements (NFR-A11Y-*)
 - Browser/device support
 
-### Step 5: Create Data Model Overview
+### Step 6: Create Data Model Overview
 
 High-level entities and relationships:
 - Core entities
 - Key attributes
 - Relationships (1:1, 1:N, N:M)
 
-### Step 6: Define API Overview
+### Step 7: Define API Overview
 
 For each major feature area:
 - Key endpoints needed
 - Request/response patterns
 - Authentication requirements
 
-### Step 7: Write the PRD
+### Step 8: Write the PRD
 
 Create `{PLANNING_ARTIFACTS}/prd.md`:
 
@@ -195,7 +211,7 @@ Create `{PLANNING_ARTIFACTS}/prd.md`:
 | {Term} | {Definition} |
 ```
 
-### Step 8: Commit
+### Step 9: Commit
 
 ```bash
 cd {PROJECT_ROOT}
@@ -209,7 +225,7 @@ git commit -m "docs(planning): PRD for {PROJECT_NAME}
 - API overview defined"
 ```
 
-### Step 9: Report Completion
+### Step 10: Report Completion
 
 ```
 ✅ PRD Created: {PROJECT_NAME}

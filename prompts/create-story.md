@@ -10,28 +10,37 @@ Create the next user story from the epics file with comprehensive context for de
 
 ## Inputs (provided in task)
 
-- `PROJECT_ROOT`: Project root directory
 - `PLANNING_ARTIFACTS`: Path to planning artifacts (PRD, architecture, epics)
 - `IMPLEMENTATION_ARTIFACTS`: Path to implementation artifacts (stories, sprint-status)
 - `STORY_KEY`: (optional) Specific story to create, e.g., "2-1-workspace-management"
 
 ## Workflow
 
-### Step 1: Load Sprint Status
+### Step 1: Validate Inputs
 
-1. Read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` completely
-2. Find the FIRST story (reading top to bottom) where:
+Check that required inputs are provided:
+- `PLANNING_ARTIFACTS` must be set
+- `IMPLEMENTATION_ARTIFACTS` must be set
+
+If missing critical input:
+```
+HALT: Missing required input: {what's missing}. Provide planning artifacts path and implementation artifacts path.
+```
+
+### Step 2: Resolve Story Key
+
+1. If `STORY_KEY` is provided, use it directly — skip to Step 3.
+2. Otherwise, read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml` completely and find the FIRST story (reading top to bottom) where:
    - Key matches pattern `X-Y-name` (not `epic-X`)
    - Status equals `backlog`
-3. If `STORY_KEY` provided, use that instead
-4. If no backlog stories found:
+3. If no backlog stories found:
    ```
    HALT: No backlog stories remaining. All stories may be complete or in progress.
    ```
 
-### Step 2: Load Context (EXHAUSTIVE ANALYSIS REQUIRED)
+### Step 3: Load Context (EXHAUSTIVE ANALYSIS REQUIRED)
 
-**2a. Load Epic Context:**
+**3a. Load Epic Context:**
 1. Read the epic file from `{PLANNING_ARTIFACTS}/epics.md` COMPLETELY
 2. Find Epic {epic_num} section and extract:
    - Epic objectives and business value
@@ -43,7 +52,7 @@ Create the next user story from the epics file with comprehensive context for de
    - Technical requirements and constraints
    - Dependencies on other stories
 
-**2b. Load Architecture Context:**
+**3b. Load Architecture Context:**
 1. Read `{PLANNING_ARTIFACTS}/architecture.md` COMPLETELY
 2. Extract EVERYTHING relevant to this story:
    - Technical stack with versions
@@ -53,7 +62,7 @@ Create the next user story from the epics file with comprehensive context for de
    - Security requirements
    - Testing standards
 
-**2c. Load Previous Story Intelligence (if story_num > 1):**
+**3c. Load Previous Story Intelligence (if story_num > 1):**
 1. Read previous story file: `{IMPLEMENTATION_ARTIFACTS}/{epic_num}-{story_num-1}-*.md`
 2. Extract:
    - Dev Notes patterns to follow
@@ -61,13 +70,13 @@ Create the next user story from the epics file with comprehensive context for de
    - Code Review findings (what to avoid)
    - Completion Notes (lessons learned)
 
-**2d. Load PRD for additional context:**
+**3d. Load PRD for additional context:**
 1. Read `{PLANNING_ARTIFACTS}/prd.md` for:
    - Functional requirements related to this story (FRxx references)
    - Non-functional requirements that apply
    - Success criteria
 
-### Step 3: Create Story File
+### Step 4: Create Story File
 
 Create file at `{IMPLEMENTATION_ARTIFACTS}/{story_key}.md` using this template:
 
@@ -134,7 +143,7 @@ so that {benefit}.
 - {date}: Story created from Epic {epic_num}
 ```
 
-### Step 4: Update Sprint Status
+### Step 5: Update Sprint Status
 
 1. Read `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`
 2. **Check if this is the first story in the epic** (story_num == 1)
@@ -143,7 +152,18 @@ so that {benefit}.
 4. Update the story's status from `backlog` to `ready-for-dev`
 5. Save the file, **preserving ALL comments and structure** (including STATUS DEFINITIONS header)
 
-### Step 5: Report Completion
+### Step 6: Commit
+
+```bash
+cd {IMPLEMENTATION_ARTIFACTS}
+git add {story_key}.md sprint-status.yaml
+git commit -m "feat(stories): create story {story_key}
+
+- Story file created with acceptance criteria and tasks
+- Sprint status updated to ready-for-dev"
+```
+
+### Step 7: Report Completion
 
 Output summary:
 ```
@@ -180,5 +200,5 @@ Return HALT with clear reason if:
 
 ## Output Format
 
-On success: Complete summary as shown in Step 5
+On success: Complete summary as shown in Step 7
 On HALT: `HALT: {specific reason with context for orchestrator}`
