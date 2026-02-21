@@ -264,13 +264,6 @@ Configure which reviews are expected vs optional in project config.
 
 ## Rules and Policies
 
-### Sub-Agent Model Policy
-
-- `dev-story` → `sonnet`
-- `code-review` → `sonnet`
-- `story-acceptance` → `opus`
-- All other BMad sub-agents → default model (unless Your Human specifies otherwise)
-
 ### STORY_KEY Formatting
 
 Always use `{epic}-{story}-{slug}` with hyphens, all lowercase — e.g. `4-1-tabbed-interface`, `2-1-workspace-management`. Never use dots (`4.1`), spaces, or underscores. Derive the slug from `epics.md` / `sprint-status.yaml` and keep it consistent everywhere.
