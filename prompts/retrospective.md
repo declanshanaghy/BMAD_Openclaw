@@ -84,13 +84,13 @@ Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md`:
 ```markdown
 # Epic {EPIC_NUMBER} Retrospective
 
-**Epic:** {epic_title}
-**Stories Completed:** {count}
+**Epic:** {epic_title}  
+**Stories Completed:** {count}  
 **Date:** {YYYY-MM-DD}
 
 ## Summary
 
-{Brief summary of what the epic accomplished}
+{Brief summary: what the epic accomplished, key wins, and challenges}
 
 ## What Went Well ✅
 
@@ -104,88 +104,56 @@ Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md`:
 
 ### Technical Patterns Established
 
-{Patterns that should be followed in all future stories}
+Patterns that should be followed in all future stories:
 
-- Pattern: {description}
-  - Files: {example files}
-  - Usage: {when to apply}
+- {Pattern name}: {concise description}
+  - Applies to: {which stories used it}
 
 ### Technical Debt Identified
 
-- Debt: {description}
-  - Impact: LOW / MEDIUM / HIGH
-  - Suggested resolution: {how to fix}
+- {Debt description} — Impact: LOW/MEDIUM/HIGH, Suggested resolution: {fix}
 
 ### Architecture Decisions Validated
 
-{Decisions from architecture.md that proved correct}
+{Brief notes on ADRs that proved correct}
 
 ### Architecture Decisions to Reconsider
 
-{Decisions that may need revisiting}
+{Brief notes on ADRs that may need revisiting}
 
 ## Review Iteration Learnings 🔁
 
-These patterns caused rework during this epic. Reviewers will actively check for these in all future epics.
-
-### Iteration Count by Story
-
-| Story | code-review runs | qa-tester runs | ux-review runs | story-acceptance cycles | Total Rework |
-|-------|-----------------|----------------|----------------|------------------------|--------------|
-| {story_key} | {N} | {N} | {N} | {N} | {N cycles} |
-| **Epic Total** | **{N}** | **{N}** | **{N}** | **{N}** | **{N}** |
-
-### Patterns That Triggered Rework
-
-| Reviewer | Issue Pattern | Stories Affected | Prevention for Next Epic |
-|----------|---------------|-----------------|--------------------------|
-| code-review | {e.g., missing error handling on API calls} | {story list} | {specific action to take upfront} |
-| qa-tester | {e.g., form validation edge cases not tested} | {story list} | {specific action to take upfront} |
-| ux-review | {e.g., loading states missing from spec} | {story list} | {specific action to take upfront} |
-
-### Recommended Document Updates
-- {learnings from step 4}
-
-### Recommendations to Carry Forward
-
-Actionable rules for the next epic. These will be enforced by all reviewers.
-
-1. {Specific, testable recommendation — e.g., "All async operations must have loading, error, and empty states"}
-2. {e.g., "Run `npm run lint` before marking any task complete"}
-3. {e.g., "All new components must match the UX spec colour tokens exactly — no inline colours"}
-
-### Process Improvements for Next Epic
-- {suggestion}
-
-### Technical Preparations for Next Epic
-- {what to set up or consider before starting}
-
-### Risks to Watch
-- {potential issues to monitor}
-
-## Story-by-Story Notes
-
-### Story {story_key}: {title}
-
-- **What worked:** {notes}
-- **Issues encountered:** {notes}
-- **Rework:** {which reviewers required fixes and why}
-
-{Repeat for each story}
-
-## Metrics
+### Metrics Summary
 
 | Metric | Value |
 |--------|-------|
 | Stories completed | {count} |
-| Stories accepted first try (zero rework) | {N} / {total} |
-| Total review iterations (all stories, all reviewers) | {N} |
-| code-review: total runs | {N} (avg {X:.1f} per story) |
-| qa-tester: total runs | {N} (avg {X:.1f} per story) |
-| ux-review: total runs | {N} (avg {X:.1f} per story) |
-| story-acceptance: CHANGES_REQUESTED cycles | {N} |
-| Files created | {count} |
-| Tests added | {count} |
+| Stories zero-rework | {N}/{total} |
+| **Total review iterations** | **{N}** |
+| Avg iterations per story | {X.X} |
+
+### Patterns That Triggered Rework
+
+{Reviewer}: {Issue pattern} ({stories affected}) → {Prevention action for next epic}
+
+### Recommended Actions for Next Epic
+
+1. {Specific, testable action — e.g., "All async operations must have loading, error, and empty states"}
+2. {e.g., "All new components must match UX spec colours exactly"}
+3. {e.g., "Document test infrastructure setup before feature work"}
+4. {e.g., "Validate error handling in code review before marking ready"}
+
+### Process Improvements
+
+- {suggestion for how to work better next time}
+
+### Technical Preparations for Next Epic
+
+- {what to set up or consider upfront}
+
+### Risks to Watch
+
+- {potential issue to monitor}
 ```
 
 ### Step 6: Update Sprint Status
