@@ -79,26 +79,20 @@ If updates needed, list them in the Retrospective Report under "Recommended Docu
 
 ### Step 5: Generate Retrospective Report
 
-Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md`:
+Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md` — **MAX 12 KB total file size**.
 
 ```markdown
 # Epic {EPIC_NUMBER} Retrospective
 
-**Epic:** {epic_title}  
-**Stories Completed:** {count}  
-**Date:** {YYYY-MM-DD}
+**Epic:** {epic_title} | **Stories:** {count} | **Date:** {YYYY-MM-DD}
 
 ## Summary
 
-{Brief summary: what the epic accomplished, key wins, and challenges}
+{One paragraph: what was accomplished and key results}
 
 ## What Went Well ✅
 
-- {Pattern or practice that worked effectively}
-
-## What Could Be Improved 🔄
-
-- {Area for improvement}
+- {Pattern or practice} (2-3 bullets max)
 
 ## Lessons Learned 📚
 
@@ -107,40 +101,37 @@ Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md`:
 - {Pattern name}: {one-line description}
 - {Pattern name}: {one-line description}
 
-### Technical Debt Identified
-
-- {Debt description} — Impact: LOW/MEDIUM/HIGH
-
-### Architecture Decisions Validated
-
-{Brief summary of validated ADRs}
-
-### Architecture Decisions to Reconsider
-
-{Brief summary of ADRs needing revisiting}
-
 ## Review Iteration Learnings 🔁
 
-### Metrics Summary
+### Metrics
 
 | Metric | Value |
 |--------|-------|
 | Stories completed | {count} |
-| Stories zero-rework | {N}/{total} |
-| **Total review iterations** | **{N}** |
-| Avg iterations per story | {X.X} |
+| Total review iterations | {N} |
+| Avg per story | {X.X} |
 
 ### Recommended Actions for Next Epic
 
-- {Specific, testable action}
+- {Specific action}
+- {Action}
+- {Action}
 - {Action}
 - {Action}
 
-### Risks to Watch
+### Critical Risks
 
-- {Risk}: {one-line description}
 - {Risk}: {one-line description}
 ```
+
+**Important:** Keep file under 12 KB. Omit:
+- Technical debt details
+- Architecture decision reviews
+- Process improvements
+- Story-by-story notes
+- Detailed rework analysis
+
+Focus only on: metrics, top patterns, top actions, critical risks.
 
 ### Step 6: Update Sprint Status
 
