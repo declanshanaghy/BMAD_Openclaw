@@ -247,7 +247,8 @@ Before completing, verify:
 - [ ] User journeys have success/error scenarios
 - [ ] Requirements use consistent ID format
 - [ ] Data model covers all features
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

@@ -277,7 +277,8 @@ Before completing, verify:
 - [ ] Failed tests have bugs documented with CRITICAL/HIGH/MEDIUM/LOW severity
 - [ ] Screenshots for failures
 - [ ] Report written with Overall Verdict: ACCEPTED | CHANGES_REQUESTED | NOT_REQUIRED
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

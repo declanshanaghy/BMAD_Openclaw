@@ -325,3 +325,25 @@ Format: `HALT: {reason} | Context: {details for orchestrator to resolve}`
 - Cite AC numbers when completing tasks
 - Document decisions in Completion Notes
 - Update File List immediately after changing files
+
+## Quality Gates
+
+Before completing, verify:
+- [ ] All task checkboxes [x] in story file
+- [ ] All acceptance criteria tests passing
+- [ ] 100% test pass rate (no failures)
+- [ ] All files listed in File List table match git changes
+- [ ] Dev Agent Record section completed with model, debug log, and notes
+- [ ] Story status set to `review`
+- [ ] All changes committed to git with clear commit messages
+- [ ] All commits pushed to remote repository (git push)
+- [ ] Story file updated and pushed to remote
+
+## HALT Conditions (Quality Gates)
+
+- Tests failing or incomplete
+- Story file corrupted or unparseable
+- Cannot commit changes (git error)
+- Cannot push to remote repository
+
+Format: `HALT: {specific reason}. Context: {details for orchestrator}`

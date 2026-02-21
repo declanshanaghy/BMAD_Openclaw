@@ -126,7 +126,8 @@ Update `{IMPLEMENTATION_ARTIFACTS}/sprint-status.yaml`: set `epics[{EPIC_NUMBER}
 - [ ] Code patterns documented with examples
 - [ ] Tech debt catalogued with impact assessment
 - [ ] Sprint status updated
-- [ ] Retrospective file created and committed
+- [ ] Retrospective file created and committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

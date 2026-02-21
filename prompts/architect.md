@@ -248,7 +248,8 @@ Before completing, verify:
 - [ ] Database schema covers all PRD entities
 - [ ] Project structure defined
 - [ ] Testing strategy specified
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

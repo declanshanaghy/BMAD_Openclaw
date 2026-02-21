@@ -223,7 +223,8 @@ Before completing, verify:
 - [ ] Each story has acceptance criteria in Given/When/Then
 - [ ] Dependencies documented
 - [ ] Story keys use format: `{epic}-{story}-{slug}`
-- [ ] Files committed to git
+- [ ] Files committed to git with clear commit messages
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

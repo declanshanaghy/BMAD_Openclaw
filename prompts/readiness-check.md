@@ -224,7 +224,8 @@ Before completing, verify:
 - [ ] Findings categorized
 - [ ] Report written
 - [ ] Clear GO/NO-GO decision
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

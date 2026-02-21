@@ -257,7 +257,8 @@ Before completing, verify:
 - [ ] Each finding has evidence
 - [ ] Accessibility checked (if applicable)
 - [ ] Report written with Overall Verdict: ACCEPTED | CHANGES_REQUESTED | NOT_REQUIRED
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

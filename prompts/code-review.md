@@ -338,3 +338,15 @@ Format: `HALT: {reason}`
 - Be specific: file:line:issue, not vague complaints
 - NEVER demand improvements that belong in different stories
 - If ACs are met and tasks are done, APPROVE — don't hunt for edge cases
+
+## Quality Gates
+
+Before completing, verify:
+- [ ] Story file loaded from disk
+- [ ] All files in File List verified against git changes
+- [ ] All acceptance criteria acceptance criteria checked against implementation
+- [ ] All CRITICAL and HIGH issues documented with file:line:resolution
+- [ ] Overall Verdict assigned (ACCEPTED or CHANGES_REQUESTED)
+- [ ] Code review report written to disk
+- [ ] Report committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)

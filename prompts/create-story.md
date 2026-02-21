@@ -188,6 +188,8 @@ Before completing, verify:
 - [ ] Architecture requirements are cited with sources
 - [ ] Sprint status updated correctly
 - [ ] No placeholder text remaining (no `{variable}` unfilled)
+- [ ] Story file committed to git with clear commit message
+- [ ] Sprint status changes pushed to remote repository (git push)
 
 ## HALT Conditions
 

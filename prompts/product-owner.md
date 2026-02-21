@@ -187,7 +187,8 @@ Before completing, verify:
 - [ ] At least 1 persona defined
 - [ ] MVP scope has clear must-have vs should-have split
 - [ ] Success metrics are measurable
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

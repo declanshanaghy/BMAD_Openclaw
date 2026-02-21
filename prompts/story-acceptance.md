@@ -265,7 +265,8 @@ Before completing, verify:
 - [ ] Story status updated in story file
 - [ ] Story status updated in sprint-status.yaml
 - [ ] Acceptance report written with working MD links to each finding
-- [ ] Files committed to git
+- [ ] Files committed to git with clear commit messages
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 

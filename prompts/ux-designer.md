@@ -275,7 +275,8 @@ Before completing, verify:
 - [ ] Empty/loading/error states defined
 - [ ] Accessibility section complete
 - [ ] Dark mode considered
-- [ ] File committed to git
+- [ ] File committed to git with clear commit message
+- [ ] All commits pushed to remote repository (git push)
 
 ## HALT Conditions
 
