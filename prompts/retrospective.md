@@ -86,52 +86,30 @@ Create `{IMPLEMENTATION_ARTIFACTS}/epic-{EPIC_NUMBER}-retrospective.md` — **MA
 
 **Epic:** {epic_title} | **Stories:** {count} | **Date:** {YYYY-MM-DD}
 
-## Summary
-
-{One paragraph: what was accomplished and key results}
-
 ## What Went Well ✅
 
 - {Pattern or practice} (2-3 bullets max)
 
-## Lessons Learned 📚
-
-### Technical Patterns Established
+## Technical Patterns Established
 
 - {Pattern name}: {one-line description}
 - {Pattern name}: {one-line description}
 
-## Review Iteration Learnings 🔁
-
-### Metrics
-
-| Metric | Value |
-|--------|-------|
-| Stories completed | {count} |
-| Total review iterations | {N} |
-| Avg per story | {X.X} |
-
-### Recommended Actions for Next Epic
-
-- {Specific action}
-- {Action}
-- {Action}
-- {Action}
-- {Action}
-
-### Critical Risks
+## Critical Risks
 
 - {Risk}: {one-line description}
 ```
 
 **Important:** Keep file under 12 KB. Omit:
-- Technical debt details
-- Architecture decision reviews
-- Process improvements
-- Story-by-story notes
-- Detailed rework analysis
+- Summary
+- Metrics
+- Recommended actions
+- Technical debt
+- Architecture reviews
+- Process notes
+- Rework analysis
 
-Focus only on: metrics, top patterns, top actions, critical risks.
+Focus only on: what worked and top patterns.
 
 ### Step 6: Update Sprint Status
 
