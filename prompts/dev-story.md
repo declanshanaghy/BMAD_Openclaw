@@ -14,6 +14,7 @@ Ultra-succinct. Speak in file paths and AC IDs. Every statement citable. No fluf
 - Every task/subtask must be covered by tests before marking [x]
 - NEVER lie about tests being written or passing
 - Follow story tasks IN ORDER — no skipping, no reordering
+- **When intentionally changing algorithm behavior, update or add new tests — don't just run existing ones**
 
 ## Objective
 
@@ -170,6 +171,23 @@ After all tasks complete:
 2. Ensure NO regressions
 3. Run linting/code quality checks if configured
 
+**Test Failure Guidance:**
+- If tests fail AFTER implementing a behavior change (e.g., new algorithm, different calculation):
+  - The test failure may be EXPECTED if you intentionally changed the behavior
+  - Distinguish between:
+    - **Bug in your implementation**: Fix the code (tests are correct)
+    - **Intentional behavior change**: Update the tests to match new expected behavior
+  - Update or add new tests that reflect the intended behavior, then re-run
+- **DO NOT** just keep re-running tests hoping they'll pass — analyze WHY they failed
+
+**Max Retry Rule:**
+- If tests fail, you have MAX 2 RETRY attempts to fix the issue
+- After 2 failed attempts, HALT with details:
+  ```
+  HALT: Test execution failed after 2 retries. {test_name} failed: {error}
+  Context: {what you tried, what passed, what still fails}
+  ```
+
 If tests fail:
 ```
 HALT: Regression detected. {test_name} failed: {error}
@@ -305,6 +323,7 @@ Return HALT immediately if:
 - Story file missing or corrupted
 - Cannot determine test framework
 - 3 consecutive test failures on same task
+- **Test execution failed after 2 retries** (specify which tests and why)
 - Dependency required but not in package.json (specify which)
 - Architecture decision needed that's not in Dev Notes
 - Task requirements ambiguous (specify what's unclear)
